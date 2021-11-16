@@ -9,15 +9,20 @@ class ArticlesController < ApplicationController
         @article = Article.find(params[:id])
     end
     
-    def new    
+    def new
+        @article = Article.new
     end
 
     # create
     def create
         @article = Article.new(article_params)
     
-        @article.save
-        redirect_to @article
+
+        if @article.save
+            redirect_to @article
+        else
+            render 'new'
+        end
     end
     
     # private method to accept a POST request (create and update)
