@@ -12,6 +12,11 @@ class ArticlesController < ApplicationController
     def new
         @article = Article.new
     end
+    
+    # edit
+    def edit
+        @article = Article.find(params[:id])
+      end
 
     # create
     def create
@@ -25,6 +30,16 @@ class ArticlesController < ApplicationController
         end
     end
     
+    def update
+        @article = Article.find(params[:id])
+        
+        if @article.update(article_params)
+            redirect_to @article
+        else
+            render 'edit'
+        end
+    end
+
     # private method to accept a POST request (create and update)
     private
         def article_params
